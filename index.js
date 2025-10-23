@@ -26,7 +26,7 @@ server.on('connection', socket => {
     try {
       let messageJSON = JSON.parse(message.toString())
       if('device_name' in messageJSON){
-        deviceCheck(messageJSON.device_type, messageJSON.device_name, messageJSON.description)
+        deviceCheck(messageJSON.device_name, messageJSON.device_type, messageJSON.description)
       }
     } catch (error) {
       console.log('non json')
@@ -44,7 +44,6 @@ server.on('connection', socket => {
 
     const clients = [...server.clients].map(client => client)
     // console.log('Connected clients:', clients)
-    console.log('\n\n\n')
   })
 
   socket.on('close', () => {
@@ -63,7 +62,6 @@ let deviceCheck = (deviceName, deviceType, description) => {
       if (err) {
           console.error('error adding device: ' + err.stack)
       }
-      console.log(result)
       if(result.length == 0){
         addDevice(deviceName, deviceType, description)
       }
