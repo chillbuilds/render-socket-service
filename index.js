@@ -9,13 +9,15 @@ server.on('connection', socket => {
   console.log('New connection')
 
   socket.on('message', message => {
-    console.log('Received:', message.toString())
 
-    // Broadcast to all connected clients
+    console.log(`received from ${socket.id}:`, message.toString())
+
     server.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
-        console.log(JSON.stringify(client))
-        client.send(message.toString())
+        client.send(JSON.stringify({
+          from: socket.id,
+          data: message.toString(),
+        }))
       }
     })
   })
