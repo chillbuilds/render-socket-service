@@ -14,6 +14,7 @@ server.on('connection', socket => {
     // Broadcast to all connected clients
     server.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
+        console.log(JSON.stringify(client))
         client.send(message.toString())
       }
     })
