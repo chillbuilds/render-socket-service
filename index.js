@@ -23,14 +23,14 @@ server.on('connection', socket => {
   // console.log(socket)
 
   socket.on('message', message => {
-    // try {
+    try {
       let messageJSON = JSON.parse(message.toString())
       if('device_name' in messageJSON){
         deviceCheck(messageJSON.device_type, messageJSON.device_name, messageJSON.description)
       }
-    // } catch (error) {
-    //   console.log('non json')
-    // }
+    } catch (error) {
+      console.log('non json')
+    }
 
     server.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
